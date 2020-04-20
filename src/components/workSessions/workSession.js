@@ -1,16 +1,16 @@
 import React, {Component} from 'react';
-import Add_friend from './add_friend';
-import './design.css';
+import Add_scenario from './add_scenario';
+import './session_design.css';
 
-class Message extends Component {
+class WorkSession extends Component {
 
     constructor(){
         super();
         this.state = {
-            displayAddFriend: false,
-            endpoint: 'http://localhost:5000/posts/',
-            hasFriends: false,
-            friends: [],
+            displayAddScenario: false,
+            endpoint: 'http://localhost:5000/workSessions/',
+            hasScenarioList: false,
+            scenarioList: [],
             prettyDate: ''
         };
 
@@ -21,48 +21,49 @@ class Message extends Component {
         var dt = new Date(this.props.dataFromParent.date);
         var month = dt.getMonth() + 1;
         var tmpStrDate = month + '/' + dt.getDate() + '/' + dt.getFullYear();
+        console.log(this.props.dataFromParent);
         
-        if (this.props.dataFromParent.friends.length > 0)
+        if (this.props.dataFromParent.scenarioList.length > 0)
         {
-            this.setState({hasFriends: true});
+            this.setState({hasScenarioList: true});
         }    
         
-        var tmpHasFriends = false;
+        var tmpHasScenarios = false;
 
-        if(this.props.dataFromParent.friends.length > 0)
+        if(this.props.dataFromParent.scenarioList.length > 0)
         {
-            tmpHasFriends = true;
+            tmpHasScenarios = true;
         }
         
         this.setState({
             endpoint: finalEndpoint,
-            friends: this.props.dataFromParent.friends,
-            hasFriends: tmpHasFriends,
+            scenarioList: this.props.dataFromParent.scenarioList,
+            hasScenarioList: tmpHasScenarios,
             prettyDate: tmpStrDate}, 
             () => {
             console.log('Endpoint within state is: ' + this.state.endpoint);
-            console.log(this.state.friends);
-            console.log(this.state.hasFriends);
+            console.log(this.state.scenarioList);
+            console.log(this.state.hasScenarioList);
         });
         
     }
 
-    showAddFriend = () => {
-        console.log("Show add friend called");
+    showAddScenario = () => {
+        console.log("showAddScenario called");
         this.setState({
-            displayAddFriend: !this.state.displayAddFriend
+            displayAddScenario: !this.state.displayAddScenario
         });
 
         fetch(this.state.endpoint)
             .then(res => res.json())
-            .then(message => {
-                console.log('In showAddFriend');
-                console.log(message);
-                this.setState({friends: message.friends,
-                               hasFriends: true},
+            .then(workSession => {
+                console.log('In showAddScenario');
+                console.log(workSession);
+                this.setState({scenarioList: workSession.scenarioList,
+                               hasScenarioList: true},
                      () => {
-                    console.log(this.state.friends);
-                    console.log(this.state.displayAddFriend);
+                    console.log(this.state.scenarioList);
+                    console.log(this.state.displayAddScenario);
                 })
             });
     }
@@ -76,34 +77,34 @@ class Message extends Component {
                 <div class="flex-child-message tbl_data">
                     <div>
                         <p align="left">
-        <h3>{this.state.prettyDate}</h3> <br></br>
+                            <h3>{this.state.prettyDate}</h3> <br></br>
                         </p>
     <table class="table table-dark" >
     <thead>
         <tr>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Job</th>
+            <th>Scenario Name</th>
+            <th>Score</th>
+            <th>Time Played</th>
         </tr>
     </thead>
     <tbody>
-    {this.state.friends.map(friend => 
+    {this.state.scenarioList.map(scenario => 
         <tr>
-            <td>{friend.first_name}</td>
-            <td>{friend.last_name}</td>
-            <td>{friend.job}</td>
+            <td>{scenario.scenario_name}</td>
+            <td>{scenario.score}</td>
+            <td>{scenario.timePlayed}</td>
         </tr>     
         )}
     </tbody>
 </table>
                         
-                         <button type="button" class="btn btn-secondary" onClick={this.showAddFriend}>Add a friend</button> 
+                         <button type="button" class="btn btn-secondary" onClick={this.showAddScenario}>Add a scenario</button> 
                     </div>
                 </div>
   
                 <div class="flex-child">
                     <div>
-                        {this.state.displayAddFriend && <Add_friend messageId={this.props.dataFromParent._id} callbackDisplay={this.showAddFriend} />}
+                        {this.state.displayAddScenario && <Add_scenario workSessionId={this.props.dataFromParent._id} callbackDisplay={this.showAddScenario} />}
                     </div>
                 </div>
   
@@ -133,4 +134,4 @@ class Message extends Component {
 
 }
 
-export default Message;
+export default WorkSession;

@@ -1,0 +1,18 @@
+.flex-container {
+    display: flex;
+}
+
+.flex-child {
+   flex: 1;
+}  
+
+.flex-child-message {
+    flex: 1;
+    border-top: 2px solid black;
+    border-left: 2px solid black;
+    border-right: 2px solid black;
+ } 
+
+.tbl_data{
+    padding: 5%;
+}

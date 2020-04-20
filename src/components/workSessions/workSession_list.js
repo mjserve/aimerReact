@@ -1,13 +1,14 @@
 import React, {Component} from 'react';
-import Message from './message';
+import WorkSession from './workSession';
 
-class Message_list extends Component {
+class WorkSession_list extends Component {
 
     constructor(){
         super();
         this.state = {
-            messages: [],
-            title: '',
+            workSessions: [],
+            //Remove title and description if not used
+            title: '',  
             description: ''
         }
         this.handleChange = this.handleChange.bind(this);
@@ -19,14 +20,14 @@ class Message_list extends Component {
     }
 
     componentDidMount() {
-        fetch('http://localhost:5000/posts/')
+        fetch('http://localhost:5000/workSessions/')
             .then(res => res.json())
-            .then(messages => {
-              messages.sort(function(a, b){
+            .then(workSessions => {
+              workSessions.sort(function(a, b){
                 return new Date(b.date) - new Date(a.date);
               });
 
-              this.setState({messages}, () => console.log('Messages fetched...', messages));
+              this.setState({workSessions}, () => console.log('WorkSessions fetched...', workSessions));
             }
               );
         console.log(this.state);
@@ -39,18 +40,15 @@ class Message_list extends Component {
     handleSubmit(event) {
       //event.preventDefault();
       
-      var message = {
-        title: this.state.title,
-        description: this.state.description
-      }
+      var workSession = {}
 
-      fetch('http://localhost:5000/posts/', {
+      fetch('http://localhost:5000/workSessions/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         /*Use created JSON here */
-       body: JSON.stringify(message),
+       body: JSON.stringify(workSession),
       })
     .then((response) => response.json())
     .then((data) => {
@@ -66,23 +64,19 @@ class Message_list extends Component {
           <div>
             
               <ul>
-                  {this.state.messages.map(message => 
-                    <li key={message._id}>
-                      <Message dataFromParent = {message}/>
+                  {this.state.workSessions.map(workSession => 
+                    <li key={workSession._id}>
+                      <WorkSession dataFromParent = {workSession}/>
                     </li>)}
         
               </ul>
               <div>
                   <form  onSubmit={this.handleSubmit}>
-                    <p><label for="title">Enter title: </label>
-                    <input id="title" type="text" name="title" placeholder="title" onChange={this.handleChange}/></p>
-                    <p><label for="description">Enter description : </label>
-                    <input id="description" type="text" name="description" placeholder="description" onChange={this.handleChange}/></p>
-                    <button type="submit">Add Message</button>
+                    <button type="submit">Add WorkSession</button>
                 </form>
               </div>
           </div>
         );
       }
     }
-    export default Message_list;
+    export default WorkSession_list;

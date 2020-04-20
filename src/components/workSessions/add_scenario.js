@@ -1,20 +1,20 @@
 import React, {Component} from 'react';
 
-class Add_friend extends Component {
+class Add_scenario extends Component {
 
     constructor(){
         super();
         
         this.state = {
-            endpoint : 'http://localhost:5000/posts/',
+            endpoint : 'http://localhost:5000/workSessions/',
             testObj : {
               first_name : 'Matt',
               last_name : 'Servello',
               job : 'Doctor Pottie'
             },
-            firstName : '',
-            lastName : '',
-            jobby : ''
+            scen_name : '',
+            score_total : '',
+            play_time : ''
         }
 
         this.handleChange = this.handleChange.bind(this);
@@ -27,21 +27,22 @@ class Add_friend extends Component {
     }
   
     handleSubmit(event) {
-      var friendToAdd = {
-        first_name : this.state.firstName,
-        last_name : this.state.lastName,
-        job : this.state.jobby
+      var scenarioToAdd = {
+        scenario_name : this.state.scen_name,
+        score : this.state.score_total,
+        timePlayed : this.state.play_time
       }
-      console.log(friendToAdd);
+      console.log('Scenario to add:');
+      console.log(scenarioToAdd);
       event.preventDefault();
 
-      fetch('http://localhost:5000/posts/'.concat(this.props.messageId), {
+      fetch('http://localhost:5000/workSessions/'.concat(this.props.workSessionId), {
         method: 'PATCH', // or 'PUT'
         headers: {
           'Content-Type': 'application/json',
         },
         /*Use created JSON here */
-       body: JSON.stringify(friendToAdd),
+       body: JSON.stringify(scenarioToAdd),
       })
     .then((response) => response.json())
     .then((data) => {
@@ -56,7 +57,7 @@ class Add_friend extends Component {
     patchTest = () => {
       console.log("In patchTest");
 
-      fetch('http://localhost:5000/posts/'.concat(this.props.messageId), {
+      fetch('http://localhost:5000/posts/'.concat(this.props.workSessionId), {
         method: 'PATCH', // or 'PUT'
         headers: {
           'Content-Type': 'application/json',
@@ -84,15 +85,15 @@ class Add_friend extends Component {
       <form onSubmit={this.handleSubmit}>
         <p><label>
           First:
-          <input type="text" name="firstName" onChange={this.handleChange} />
+          <input type="text" name="scen_name" onChange={this.handleChange} />
         </label></p>
         <p><label>
           Last:
-          <input type="text" name="lastName" onChange={this.handleChange} />
+          <input type="text" name="score_total" onChange={this.handleChange} />
         </label></p>
         <p><label>
           Jobby:
-          <input type="text" name="jobby" onChange={this.handleChange} />
+          <input type="text" name="play_time" onChange={this.handleChange} />
         </label></p>
         <input type="submit" value="Submit" />
       </form>
@@ -104,4 +105,4 @@ class Add_friend extends Component {
       }
 }
 
-export default Add_friend;
+export default Add_scenario;
