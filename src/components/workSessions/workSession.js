@@ -68,6 +68,27 @@ class WorkSession extends Component {
             });
     }
 
+    deleteWorkSession = () => {
+        console.log('In delete...');
+        fetch(this.state.endpoint, {
+            method: 'DELETE', 
+       
+           body: JSON.stringify(this.props.dataFromParent._id)
+        }).
+        then((response) => response.json())
+        .then((data) => {
+        console.log('Success:', data);
+        this.props.deletePress();
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+    });
+    }
+
+    addToCompare = () => {
+        this.props.addToCompare(this.props.dataFromParent._id);
+    }
+
 
     render() {
         return (
@@ -99,6 +120,8 @@ class WorkSession extends Component {
 </table>
                         
                          <button type="button" class="btn btn-secondary" onClick={this.showAddScenario}>Add a scenario</button> 
+                         <button type="button" class="btn btn-secondary" onClick={this.deleteWorkSession}>Delete</button> 
+                         <button type="button" class="btn btn-secondary" onClick={this.addToCompare}>Compare</button> 
                     </div>
                 </div>
   
@@ -109,26 +132,7 @@ class WorkSession extends Component {
                 </div>
   
             </div>
-            /*<div>
-                 <p>
-                    From Message Component...{this.props.dataFromParent.title} <br></br> 
-                                             {this.props.dataFromParent.description} <br></br> 
-                                             {this.props.dataFromParent.date} <br></br>
-                                        
-                    {this.state.hasFriends && 
-                    <ul>
-                    {this.state.friends.map(friend => 
-                      <li key={friend.first_name}>
-                        <p>{friend.first_name} {friend.last_name} {friend.job}</p>
-                      </li>)}
-          
-                </ul>}
-                </p>
-                <button onClick={this.showAddFriend}>Add a friend</button> 
-                <div>
-                    {this.state.displayAddFriend && <Add_friend messageId={this.props.dataFromParent._id} callbackDisplay={this.showAddFriend} />}
-                </div>
-            </div>*/
+
         );
     }
 

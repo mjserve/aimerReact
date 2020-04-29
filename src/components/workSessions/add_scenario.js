@@ -79,25 +79,23 @@ class Add_scenario extends Component {
     render() {
         return (
           <div>
-            <h3>This path is : </h3>
-            <h3>{this.state.testObj.first_name} {this.state.testObj.last_name}</h3>
+            <h3>Enter scenario stats : </h3>
             <div>
       <form onSubmit={this.handleSubmit}>
         <p><label>
-          First:
+          Scenario Name:
           <input type="text" name="scen_name" onChange={this.handleChange} />
         </label></p>
         <p><label>
-          Last:
+          Score:
           <input type="text" name="score_total" onChange={this.handleChange} />
         </label></p>
         <p><label>
-          Jobby:
+          Time Played:
           <input type="text" name="play_time" onChange={this.handleChange} />
         </label></p>
         <input type="submit" value="Submit" />
       </form>
-            <button onClick={this.patchTest}>Submit Test Data</button>
           </div>
           </div>
           
