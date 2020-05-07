@@ -4,31 +4,36 @@ import './App.css';
 import Messages from './components/messages/messages';
 import Message_list from './components/messages_2.0/message_list';
 import WorkSession_list from './components/workSessions/workSession_list';
+import Header from './components/header';
+import HighScores from './components/workSessions/highScores';
 import WorkSession from './components/workSessions/workSession';
+import Navigation from './components/Navigation';
+import { BrowserRouter, Route, Switch} from 'react-router-dom';
 
 class App extends Component {
-  /*
-  render() {
-    return (
-      <div className="App">
-        {<header className="App-header">
-          <h1 className="App-title">Welcome to Aim Tracker</h1>
-        </header>}
-        <Message_list />
-      </div>
-    );
-  }*/
+
+/** 
+ * <BrowserRouter>
+        <Switch>
+          <Route path="/" component={WorkSession_list}/>
+        </Switch>
+      </BrowserRouter>
+*/
 
   render() {
     return (
-      <div className="App">
-        {<header className="App-header">
-          <h1 className="App-title">Welcome to Aim Tracker</h1>
-        </header>}
-        
-        <WorkSession_list />
-        {/*<Message_list />*/}
-      </div>
+      <BrowserRouter>
+        <div>
+          <Header />
+          <Navigation />
+          <Switch>
+            <Route path="/" component={WorkSession_list} exact />
+            <Route path="/highScores" component={HighScores} />
+          </Switch>
+        </div>
+      </BrowserRouter>
+
+
     );
   }
 

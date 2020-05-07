@@ -1,10 +1,10 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import Add_scenario from './add_scenario';
 import './session_design.css';
 
 class WorkSession extends Component {
 
-    constructor(){
+    constructor() {
         super();
         this.state = {
             displayAddScenario: false,
@@ -22,30 +22,29 @@ class WorkSession extends Component {
         var month = dt.getMonth() + 1;
         var tmpStrDate = month + '/' + dt.getDate() + '/' + dt.getFullYear();
         console.log(this.props.dataFromParent);
-        
-        if (this.props.dataFromParent.scenarioList.length > 0)
-        {
-            this.setState({hasScenarioList: true});
-        }    
-        
+
+        if (this.props.dataFromParent.scenarioList.length > 0) {
+            this.setState({ hasScenarioList: true });
+        }
+
         var tmpHasScenarios = false;
 
-        if(this.props.dataFromParent.scenarioList.length > 0)
-        {
+        if (this.props.dataFromParent.scenarioList.length > 0) {
             tmpHasScenarios = true;
         }
-        
+
         this.setState({
             endpoint: finalEndpoint,
             scenarioList: this.props.dataFromParent.scenarioList,
             hasScenarioList: tmpHasScenarios,
-            prettyDate: tmpStrDate}, 
+            prettyDate: tmpStrDate
+        },
             () => {
-            console.log('Endpoint within state is: ' + this.state.endpoint);
-            console.log(this.state.scenarioList);
-            console.log(this.state.hasScenarioList);
-        });
-        
+                console.log('Endpoint within state is: ' + this.state.endpoint);
+                console.log(this.state.scenarioList);
+                console.log(this.state.hasScenarioList);
+            });
+
     }
 
     showAddScenario = () => {
@@ -59,30 +58,32 @@ class WorkSession extends Component {
             .then(workSession => {
                 console.log('In showAddScenario');
                 console.log(workSession);
-                this.setState({scenarioList: workSession.scenarioList,
-                               hasScenarioList: true},
-                     () => {
-                    console.log(this.state.scenarioList);
-                    console.log(this.state.displayAddScenario);
-                })
+                this.setState({
+                    scenarioList: workSession.scenarioList,
+                    hasScenarioList: true
+                },
+                    () => {
+                        console.log(this.state.scenarioList);
+                        console.log(this.state.displayAddScenario);
+                    })
             });
     }
 
     deleteWorkSession = () => {
         console.log('In delete...');
         fetch(this.state.endpoint, {
-            method: 'DELETE', 
-       
-           body: JSON.stringify(this.props.dataFromParent._id)
+            method: 'DELETE',
+
+            body: JSON.stringify(this.props.dataFromParent._id)
         }).
-        then((response) => response.json())
-        .then((data) => {
-        console.log('Success:', data);
-        this.props.deletePress();
-    })
-    .catch((error) => {
-      console.error('Error:', error);
-    });
+            then((response) => response.json())
+            .then((data) => {
+                console.log('Success:', data);
+                this.props.deletePress();
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
     }
 
     addToCompare = () => {
@@ -92,7 +93,7 @@ class WorkSession extends Component {
 
     render() {
         return (
-           
+
             <div class="flex-container">
 
                 <div class="flex-child-message tbl_data">
@@ -100,37 +101,35 @@ class WorkSession extends Component {
                         <p align="left">
                             <h3>{this.state.prettyDate}</h3> <br></br>
                         </p>
-    <table class="table table-dark" >
-    <thead>
-        <tr>
-            <th>Scenario Name</th>
-            <th>Score</th>
-            <th>Time Played</th>
-        </tr>
-    </thead>
-    <tbody>
-    {this.state.scenarioList.map(scenario => 
-        <tr>
-            <td>{scenario.scenario_name}</td>
-            <td>{scenario.score}</td>
-            <td>{scenario.timePlayed}</td>
-        </tr>     
-        )}
-    </tbody>
-</table>
-                        
-                         <button type="button" class="btn btn-secondary" onClick={this.showAddScenario}>Add a scenario</button> 
-                         <button type="button" class="btn btn-secondary" onClick={this.deleteWorkSession}>Delete</button> 
-                         <button type="button" class="btn btn-secondary" onClick={this.addToCompare}>Compare</button> 
+                        <table class="table table-dark" >
+                            <thead>
+                                <tr>
+                                    <th>Scenario Name</th>
+                                    <th>Score</th>
+                                    <th>Time Played</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {this.state.scenarioList.map(scenario =>
+                                    <tr>
+                                        <td>{scenario.scenario_name}</td>
+                                        <td>{scenario.score}</td>
+                                        <td>{scenario.timePlayed}</td>
+                                    </tr>
+                                )}
+                            </tbody>
+                        </table>
+
+                        <button type="button" class="btn btn-secondary" onClick={this.showAddScenario}>Add a scenario</button>
+                        <button type="button" class="btn btn-secondary" onClick={this.deleteWorkSession}>Delete</button>
+                        <button type="button" class="btn btn-secondary" onClick={this.addToCompare}>Compare</button>
+
+                        {this.state.displayAddScenario ? <Add_scenario workSessionId={this.props.dataFromParent._id} callbackDisplay={this.showAddScenario} /> : null}
+
                     </div>
                 </div>
-  
-                <div class="flex-child">
-                    <div>
-                        {this.state.displayAddScenario && <Add_scenario workSessionId={this.props.dataFromParent._id} callbackDisplay={this.showAddScenario} />}
-                    </div>
-                </div>
-  
+
+
             </div>
 
         );

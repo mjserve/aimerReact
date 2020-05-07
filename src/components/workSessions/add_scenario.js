@@ -76,31 +76,36 @@ class Add_scenario extends Component {
     }
 
 
-    render() {
-        return (
-          <div>
-            <h3>Enter scenario stats : </h3>
-            <div>
-      <form onSubmit={this.handleSubmit}>
-        <p><label>
-          Scenario Name:
+  render() {
+    return (
+      <div>
+        <h3>Enter scenario stats : </h3>
+        <div>
+          <form onSubmit={this.handleSubmit}>
+            <p><select name="test_scen_name" id="scen_select">
+              <option value="RexyStrafe">RexyStrafe</option>
+              <option value="1wally6targy">1wally6targy</option>
+            </select>
+            </p>
+            <p><label>
+              Scenario Name:
           <input type="text" name="scen_name" onChange={this.handleChange} />
-        </label></p>
-        <p><label>
-          Score:
+            </label></p>
+            <p><label>
+              Score:
           <input type="text" name="score_total" onChange={this.handleChange} />
-        </label></p>
-        <p><label>
-          Time Played:
+            </label></p>
+            <p><label>
+              Time Played:
           <input type="text" name="play_time" onChange={this.handleChange} />
-        </label></p>
-        <input type="submit" value="Submit" />
-      </form>
-          </div>
-          </div>
-          
-        );
-      }
+            </label></p>
+            <input type="submit" value="Submit" />
+          </form>
+        </div>
+      </div>
+
+    );
+  }
 }
 
 export default Add_scenario;
