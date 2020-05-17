@@ -1,5 +1,7 @@
 The beginning of a React app to track workouts in Kovaak 2.0 the Meta. 
 
+-Only use in Chrome browser for now. Adding workSessions does not appear to currently work in Firefox. Working on fix.
+
 The app displays all previously saved workouts on home page. Indvidual workouts can be compared by
 selecting 2 different workouts and clicking "compare" in the adjacent pane. 
 

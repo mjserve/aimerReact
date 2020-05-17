@@ -51,6 +51,7 @@ class WorkSession_list extends Component {
   handleSubmit(event) {
     //event.preventDefault();
 
+    console.log('In addSession handle method...');
     var workSession = {}
 
     fetch('http://localhost:5000/workSessions/', {
