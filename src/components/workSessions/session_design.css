@@ -27,7 +27,13 @@
     bottom: 0;  
     margin: auto;  
     background-color: rgba(0,0,0, 0.5);  
-  }  
+  }
+
+  .navigation_header{
+    display: flex;
+    align-items: center;
+  }
+
   .popup_inner {  
     position: absolute;  
     left: 25%;  
