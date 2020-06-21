@@ -11,7 +11,8 @@ class WorkSession extends Component {
             endpoint: 'http://localhost:5000/workSessions/',
             hasScenarioList: false,
             scenarioList: [],
-            prettyDate: ''
+            prettyDate: '',
+            scenarioTypes: []
         };
 
     }
@@ -43,6 +44,12 @@ class WorkSession extends Component {
                 console.log('Endpoint within state is: ' + this.state.endpoint);
                 console.log(this.state.scenarioList);
                 console.log(this.state.hasScenarioList);
+            });
+
+        fetch('http://localhost:5000/workSessions/scenarioTypes')
+            .then(res => res.json())
+            .then(scenarioTypes => {
+                this.setState({scenarioTypes}, () => console.log('Scenario types fetched...', scenarioTypes));
             });
 
     }
@@ -124,7 +131,7 @@ class WorkSession extends Component {
                         <button type="button" class="btn btn-secondary" onClick={this.deleteWorkSession}>Delete</button>
                         <button type="button" class="btn btn-secondary" onClick={this.addToCompare}>Compare</button>
 
-                        {this.state.displayAddScenario ? <Add_scenario workSessionId={this.props.dataFromParent._id} callbackDisplay={this.showAddScenario} /> : null}
+                        {this.state.displayAddScenario ? <Add_scenario workSessionId={this.props.dataFromParent._id} typeList={this.state.scenarioTypes} callbackDisplay={this.showAddScenario} /> : null}
 
                     </div>
                 </div>

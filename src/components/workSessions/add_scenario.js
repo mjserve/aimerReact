@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import Select from 'react-select';
 
 class Add_scenario extends Component {
 
@@ -14,16 +15,44 @@ class Add_scenario extends Component {
             },
             scen_name : '',
             score_total : '',
-            play_time : ''
+            play_time : '',
+            scen_type_list: [],
+            scen_name_list: [],
+            label_val_list: [],
+            testing_scen: ''
         }
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.selectOnChange = this.selectOnChange.bind(this);
 
+    }
+
+    componentDidMount(){
+      console.log('Add sceneario mounted');
+      console.log(this.props.typeList);
+
+      let label_val_list = [];
+
+      this.props.typeList.map(scenarioType => {
+        var tempObj = {
+          "label" : scenarioType.name,
+          "value" : scenarioType.name
+        }
+
+        label_val_list.push(tempObj);
+      })
+
+      this.setState({label_val_list}, () => console.log('Updated label/value list...'));
     }
 
     handleChange(event) {
       this.setState({[event.target.name]: event.target.value});
+    }
+
+    selectOnChange(currentOption){
+      console.log(currentOption);
+      this.setState({scen_name : currentOption.value});
     }
   
     handleSubmit(event) {
@@ -82,10 +111,13 @@ class Add_scenario extends Component {
         <h3>Enter scenario stats : </h3>
         <div>
           <form onSubmit={this.handleSubmit}>
-            <p><label>
-              Scenario Name:
-          <input type="text" name="scen_name" onChange={this.handleChange} />
-            </label></p>
+            <p><label>Choose a scenario: </label>
+            <Select
+              name = 'testing_scen'
+              options = {this.state.label_val_list}
+              onChange = {this.selectOnChange}
+              />
+            </p>
             <p><label>
               Score:
           <input type="text" name="score_total" onChange={this.handleChange} />
