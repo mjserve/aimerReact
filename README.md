@@ -16,3 +16,8 @@ added to that worksession.
 	*ADD TEMPLATES FOR HOW TO ENTER DATA HERE BECAUSE IM UNCLEAR
 
 Click "High Scores" to see all supported scenario types and the highest score acheived. 
+
+TO USE:
+-download aimerServer and enter "npm start" on command line in directory
+-enter "npm start" in aimerReact directory
+-visit "localhost:3000" using Chrome preferably
