@@ -19,7 +19,9 @@ class Add_scenario extends Component {
             scen_type_list: [],
             scen_name_list: [],
             label_val_list: [],
-            testing_scen: ''
+            testing_scen: '',
+            scen_score_placeholder: 'choo choo',
+            placeholder_flag: true
         }
 
         this.handleChange = this.handleChange.bind(this);
@@ -50,10 +52,26 @@ class Add_scenario extends Component {
       this.setState({[event.target.name]: event.target.value});
     }
 
-    selectOnChange(currentOption){
-      console.log(currentOption);
-      this.setState({scen_name : currentOption.value});
-    }
+  /**
+   * 
+   * Sets scen_name and the correct scen_score_placeholder prior to form submission
+   */
+  selectOnChange(currentOption) {
+    console.log(currentOption);
+  
+    let scen_template = '';
+
+    this.props.typeList.map(scenario => {
+      if (scenario.name === currentOption.value) {
+        scen_template = scenario.score_template;
+      }
+    });
+
+    this.setState({
+      scen_name: currentOption.value,
+      scen_score_placeholder: scen_template
+    });
+  }
   
     handleSubmit(event) {
       var scenarioToAdd = {
@@ -120,11 +138,11 @@ class Add_scenario extends Component {
             </p>
             <p><label>
               Score:
-          <input type="text" name="score_total" onChange={this.handleChange} />
+          <input type="text" name="score_total" placeholder={this.state.scen_score_placeholder} onChange={this.handleChange} />
             </label></p>
             <p><label>
               Time Played:
-          <input type="text" name="play_time" onChange={this.handleChange} />
+          <input type="text" name="play_time" placeholder="X min" onChange={this.handleChange} />
             </label></p>
             <input type="submit" value="Submit" />
           </form>
