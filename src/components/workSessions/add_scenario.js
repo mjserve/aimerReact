@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import Select from 'react-select';
+import './session_design.css';
 
 class Add_scenario extends Component {
 
@@ -20,8 +21,7 @@ class Add_scenario extends Component {
             scen_name_list: [],
             label_val_list: [],
             testing_scen: '',
-            scen_score_placeholder: 'choo choo',
-            placeholder_flag: true
+            scen_score_placeholder: '',
         }
 
         this.handleChange = this.handleChange.bind(this);
@@ -125,27 +125,33 @@ class Add_scenario extends Component {
 
   render() {
     return (
-      <div>
-        <h3>Enter scenario stats : </h3>
-        <div>
-          <form onSubmit={this.handleSubmit}>
-            <p><label>Choose a scenario: </label>
-            <Select
-              name = 'testing_scen'
-              options = {this.state.label_val_list}
-              onChange = {this.selectOnChange}
-              />
-            </p>
-            <p><label>
-              Score:
-          <input type="text" name="score_total" placeholder={this.state.scen_score_placeholder} onChange={this.handleChange} />
-            </label></p>
-            <p><label>
-              Time Played:
-          <input type="text" name="play_time" placeholder="X min" onChange={this.handleChange} />
-            </label></p>
-            <input type="submit" value="Submit" />
-          </form>
+      <div class="border border-dark rounded add_scenario_box">
+        <div class="form_box">
+          <br></br>
+          <br></br>
+          <h3 >Enter scenario stats : </h3>
+          <div >
+            <form onSubmit={this.handleSubmit}>
+              <p><label>Choose a scenario: </label>
+                <Select
+                  name='testing_scen'
+                  options={this.state.label_val_list}
+                  onChange={this.selectOnChange}
+                />
+              </p>
+              <p><label>
+                Score:
+              <br></br>
+                <input type="text" name="score_total" placeholder={this.state.scen_score_placeholder} onChange={this.handleChange} />
+              </label></p>
+              <p><label>
+                Time Played:
+              <br></br>
+                <input type="text" name="play_time" placeholder="X min" onChange={this.handleChange} />
+              </label></p>
+              <input class="btn" type="submit" value="Submit" />
+            </form>
+          </div>
         </div>
       </div>
 

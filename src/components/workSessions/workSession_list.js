@@ -176,7 +176,7 @@ class WorkSession_list extends Component {
           </div>
         </div>
 
-        <div class="flex-child">
+        <div class="flex-child" style={{margin: '2%'}}>
           <div>
             <table class="table table-dark" >
               <thead>

@@ -6,14 +6,16 @@ class Navigation extends Component {
 
 
   render() {
-    
+
     return (
-      
-     <div class="navigation_header">
-         <NavLink to="/">Home</NavLink>
-         <NavLink to="/highScores">High Scores</NavLink>
-     </div>
-     
+
+      <div class="navigation_header">
+        <div>
+          <NavLink class="navigation_link" to="/">Home</NavLink>
+          <NavLink class="navigation_link"  to="/highScores">High Scores</NavLink>
+        </div>
+      </div>
+
 /*
     <header>
       <h4 class="logo">Aim Training</h4>

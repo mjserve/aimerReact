@@ -23,7 +23,7 @@ class App extends Component {
   render() {
     return (
       <BrowserRouter>
-        <div>
+        <div class="border border-dark rounded">
           <Header />
           <Navigation />
           <Switch>
